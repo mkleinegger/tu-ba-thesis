@@ -1,0 +1,449 @@
+{
+    "1e-17": [
+        {
+            "education-num": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                11,
+                13,
+                14,
+                16
+            ],
+            "capital-loss": [
+                "LowLoss",
+                "NoLoss"
+            ],
+            "relationship": [
+                "Husband",
+                "Other-relative",
+                "Own-child",
+                "Unmarried",
+                "Wife"
+            ],
+            "workclass": [
+                "?",
+                "Federal-gov",
+                "Local-gov",
+                "Never-worked",
+                "Private",
+                "Self-emp-not-inc",
+                "State-gov"
+            ],
+            "capital-gain": [
+                "NoGain"
+            ],
+            "hours-per-week": [
+                "FullTime",
+                "OverTime",
+                "PartTime"
+            ],
+            "sex": [
+                "Male"
+            ],
+            "age": [
+                "(16.999, 27.0]",
+                "(39.0, 47.0]",
+                "(47.0, 90.0]"
+            ],
+            "occupation": [
+                "?",
+                "Craft-repair",
+                "Exec-managerial",
+                "Farming-fishing",
+                "Handlers-cleaners",
+                "Machine-op-inspct",
+                "Other-service",
+                "Prof-specialty",
+                "Tech-support"
+            ],
+            "marital-status": [
+                "Divorced",
+                "Married-civ-spouse",
+                "Married-spouse-absent",
+                "Never-married",
+                "Separated",
+                "Widowed"
+            ],
+            "race": [
+                "Asian-Pac-Islander",
+                "Black"
+            ]
+        },
+        15.1428
+    ],
+    "1e-10": [
+        {
+            "education-num": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                10,
+                11,
+                13,
+                14,
+                16
+            ],
+            "marital-status": [
+                "Divorced",
+                "Married-AF-spouse",
+                "Married-civ-spouse",
+                "Married-spouse-absent",
+                "Separated",
+                "Widowed"
+            ],
+            "capital-loss": [
+                "HighLoss",
+                "LowLoss",
+                "NoLoss"
+            ],
+            "occupation": [
+                "?",
+                "Adm-clerical",
+                "Farming-fishing",
+                "Handlers-cleaners",
+                "Machine-op-inspct",
+                "Other-service",
+                "Priv-house-serv",
+                "Prof-specialty",
+                "Protective-serv",
+                "Sales",
+                "Tech-support",
+                "Transport-moving"
+            ],
+            "hours-per-week": [
+                "FullTime",
+                "PartTime"
+            ],
+            "workclass": [
+                "Federal-gov",
+                "Local-gov",
+                "Private",
+                "State-gov"
+            ],
+            "capital-gain": [
+                "HighGain",
+                "LowGain",
+                "MediumGain"
+            ],
+            "age": [
+                "(16.999, 27.0]",
+                "(33.0, 39.0]"
+            ],
+            "race": [
+                "Black",
+                "Other"
+            ]
+        },
+        18.5601
+    ],
+    "0.001": [
+        {
+            "workclass": [
+                "Federal-gov",
+                "Local-gov",
+                "Private",
+                "State-gov"
+            ],
+            "education-num": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                10,
+                11,
+                13,
+                14,
+                16
+            ],
+            "capital-gain": [
+                "HighGain",
+                "LowGain",
+                "MediumGain"
+            ],
+            "occupation": [
+                "?",
+                "Adm-clerical",
+                "Farming-fishing",
+                "Handlers-cleaners",
+                "Machine-op-inspct",
+                "Other-service",
+                "Priv-house-serv",
+                "Prof-specialty",
+                "Protective-serv",
+                "Sales",
+                "Tech-support",
+                "Transport-moving"
+            ],
+            "age": [
+                "(16.999, 27.0]",
+                "(33.0, 39.0]"
+            ],
+            "marital-status": [
+                "Divorced",
+                "Married-AF-spouse",
+                "Married-civ-spouse",
+                "Married-spouse-absent",
+                "Separated",
+                "Widowed"
+            ],
+            "capital-loss": [
+                "HighLoss",
+                "LowLoss",
+                "NoLoss"
+            ],
+            "race": [
+                "Black",
+                "Other"
+            ],
+            "hours-per-week": [
+                "FullTime",
+                "PartTime"
+            ]
+        },
+        18.5151
+    ],
+    "0.01": [
+        {
+            "workclass": [
+                "Federal-gov",
+                "Local-gov",
+                "Private",
+                "State-gov"
+            ],
+            "education-num": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                10,
+                11,
+                13,
+                14,
+                16
+            ],
+            "capital-gain": [
+                "HighGain",
+                "LowGain",
+                "MediumGain"
+            ],
+            "occupation": [
+                "?",
+                "Adm-clerical",
+                "Farming-fishing",
+                "Handlers-cleaners",
+                "Machine-op-inspct",
+                "Other-service",
+                "Prof-specialty",
+                "Protective-serv",
+                "Sales",
+                "Tech-support",
+                "Transport-moving"
+            ],
+            "age": [
+                "(16.999, 27.0]",
+                "(33.0, 39.0]"
+            ],
+            "marital-status": [
+                "Divorced",
+                "Married-AF-spouse",
+                "Married-civ-spouse",
+                "Married-spouse-absent",
+                "Separated",
+                "Widowed"
+            ],
+            "capital-loss": [
+                "HighLoss",
+                "LowLoss",
+                "NoLoss"
+            ],
+            "race": [
+                "Black",
+                "Other"
+            ],
+            "hours-per-week": [
+                "FullTime",
+                "PartTime"
+            ]
+        },
+        18.1157
+    ],
+    "0.1": [
+        {
+            "workclass": [
+                "?",
+                "Federal-gov",
+                "Local-gov",
+                "Private"
+            ],
+            "hours-per-week": [
+                "BrainDrain",
+                "FullTime"
+            ],
+            "education-num": [
+                4,
+                6,
+                7,
+                10,
+                11,
+                13,
+                14,
+                15,
+                16
+            ],
+            "capital-loss": [
+                "LowLoss",
+                "MediumLoss"
+            ],
+            "capital-gain": [
+                "NoGain"
+            ],
+            "occupation": [
+                "?",
+                "Craft-repair",
+                "Farming-fishing",
+                "Handlers-cleaners",
+                "Machine-op-inspct",
+                "Other-service",
+                "Prof-specialty",
+                "Protective-serv",
+                "Sales",
+                "Tech-support",
+                "Transport-moving"
+            ],
+            "age": [
+                "(16.999, 27.0]",
+                "(27.0, 33.0]",
+                "(39.0, 47.0]"
+            ]
+        },
+        17.0019
+    ],
+    "0": [
+        {
+            "marital-status": [
+                "Divorced",
+                "Married-AF-spouse",
+                "Married-civ-spouse",
+                "Married-spouse-absent",
+                "Never-married"
+            ],
+            "capital-loss": [
+                "HighLoss",
+                "NoLoss"
+            ],
+            "relationship": [
+                "Not-in-family",
+                "Own-child",
+                "Unmarried"
+            ],
+            "workclass": [
+                "?",
+                "Never-worked",
+                "Private",
+                "Self-emp-inc",
+                "State-gov",
+                "Without-pay"
+            ],
+            "sex": [
+                "Male"
+            ],
+            "capital-gain": [
+                "LowGain",
+                "NoGain"
+            ],
+            "race": [
+                "Asian-Pac-Islander",
+                "White"
+            ],
+            "occupation": [
+                "?",
+                "Adm-clerical",
+                "Armed-Forces",
+                "Farming-fishing",
+                "Handlers-cleaners",
+                "Other-service",
+                "Priv-house-serv",
+                "Protective-serv",
+                "Tech-support",
+                "Transport-moving"
+            ],
+            "age": [
+                "(16.999, 27.0]",
+                "(33.0, 39.0]",
+                "(39.0, 47.0]",
+                "(47.0, 90.0]"
+            ],
+            "hours-per-week": [
+                "FullTime",
+                "MidTime",
+                "PartTime"
+            ],
+            "education-num": [
+                2,
+                4,
+                6,
+                7,
+                8,
+                10,
+                13,
+                14,
+                15
+            ]
+        },
+        15.473
+    ],
+    "1": [
+        {
+            "education-num": [
+                11,
+                13,
+                14
+            ],
+            "capital-loss": [
+                "NoLoss"
+            ],
+            "sex": [
+                "Male"
+            ],
+            "race": [
+                "Black"
+            ],
+            "occupation": [
+                "Prof-specialty",
+                "Protective-serv"
+            ]
+        },
+        7.357
+    ],
+    "5": [
+        {},
+        -0.0
+    ],
+    "10": [
+        {},
+        -0.0
+    ],
+    "25": [
+        {},
+        -0.0
+    ],
+    "50": [
+        {},
+        -0.0
+    ],
+    "100": [
+        {},
+        -0.0
+    ]
+}

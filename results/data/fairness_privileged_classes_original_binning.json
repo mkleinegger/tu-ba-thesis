@@ -1,0 +1,442 @@
+{
+    "1e-17": [
+        {
+            "race": [
+                "Asian-Pac-Islander",
+                "Black",
+                "Other",
+                "White"
+            ],
+            "capital-gain": [
+                "LowGain",
+                "NoGain"
+            ],
+            "occupation": [
+                "?",
+                "Adm-clerical",
+                "Armed-Forces",
+                "Craft-repair",
+                "Exec-managerial",
+                "Farming-fishing",
+                "Handlers-cleaners",
+                "Machine-op-inspct",
+                "Other-service",
+                "Priv-house-serv",
+                "Tech-support",
+                "Transport-moving"
+            ],
+            "workclass": [
+                "?",
+                "Federal-gov",
+                "Local-gov",
+                "Never-worked",
+                "Private",
+                "Self-emp-inc",
+                "Self-emp-not-inc",
+                "State-gov",
+                "Without-pay"
+            ],
+            "capital-loss": [
+                "LowLoss",
+                "MediumLoss",
+                "NoLoss"
+            ],
+            "hours-per-week": [
+                "FullTime",
+                "MidTime",
+                "PartTime"
+            ],
+            "sex": [
+                "Female",
+                "Male"
+            ],
+            "marital-status": [
+                "Divorced",
+                "Married-AF-spouse",
+                "Married-spouse-absent",
+                "Never-married",
+                "Separated"
+            ],
+            "education-num": [
+                1,
+                2,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13
+            ],
+            "age": [
+                "(16.999, 26.0]",
+                "(26.0, 34.0]",
+                "(34.0, 41.0]",
+                "(41.0, 50.0]"
+            ],
+            "relationship": [
+                "Husband",
+                "Not-in-family",
+                "Other-relative",
+                "Own-child",
+                "Unmarried"
+            ]
+        },
+        42.3979
+    ],
+    "1e-10": [
+        {
+            "race": [
+                "Asian-Pac-Islander",
+                "Black",
+                "Other",
+                "White"
+            ],
+            "capital-gain": [
+                "LowGain",
+                "NoGain"
+            ],
+            "occupation": [
+                "?",
+                "Adm-clerical",
+                "Armed-Forces",
+                "Craft-repair",
+                "Exec-managerial",
+                "Farming-fishing",
+                "Handlers-cleaners",
+                "Machine-op-inspct",
+                "Other-service",
+                "Priv-house-serv",
+                "Tech-support",
+                "Transport-moving"
+            ],
+            "capital-loss": [
+                "LowLoss",
+                "MediumLoss",
+                "NoLoss"
+            ],
+            "hours-per-week": [
+                "FullTime",
+                "MidTime",
+                "PartTime"
+            ],
+            "marital-status": [
+                "Divorced",
+                "Married-spouse-absent",
+                "Never-married",
+                "Separated"
+            ],
+            "education-num": [
+                1,
+                2,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13
+            ],
+            "age": [
+                "(16.999, 26.0]",
+                "(26.0, 34.0]",
+                "(34.0, 41.0]",
+                "(41.0, 50.0]"
+            ]
+        },
+        42.2262
+    ],
+    "0.001": [
+        {
+            "race": [
+                "Asian-Pac-Islander",
+                "Black",
+                "Other",
+                "White"
+            ],
+            "capital-gain": [
+                "LowGain",
+                "NoGain"
+            ],
+            "occupation": [
+                "?",
+                "Adm-clerical",
+                "Armed-Forces",
+                "Craft-repair",
+                "Exec-managerial",
+                "Farming-fishing",
+                "Handlers-cleaners",
+                "Machine-op-inspct",
+                "Other-service",
+                "Priv-house-serv",
+                "Tech-support",
+                "Transport-moving"
+            ],
+            "capital-loss": [
+                "LowLoss",
+                "MediumLoss",
+                "NoLoss"
+            ],
+            "hours-per-week": [
+                "FullTime",
+                "MidTime",
+                "PartTime"
+            ],
+            "marital-status": [
+                "Divorced",
+                "Married-spouse-absent",
+                "Never-married",
+                "Separated"
+            ],
+            "education-num": [
+                1,
+                2,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13
+            ],
+            "age": [
+                "(16.999, 26.0]",
+                "(26.0, 34.0]",
+                "(34.0, 41.0]",
+                "(41.0, 50.0]"
+            ]
+        },
+        42.1832
+    ],
+    "0.01": [
+        {
+            "capital-loss": [
+                "HighLoss"
+            ],
+            "sex": [
+                "Male"
+            ],
+            "workclass": [
+                "Federal-gov",
+                "Local-gov",
+                "Private",
+                "Self-emp-not-inc"
+            ],
+            "education-num": [
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                9,
+                10,
+                11,
+                12,
+                13,
+                16
+            ],
+            "occupation": [
+                "Craft-repair",
+                "Machine-op-inspct",
+                "Other-service",
+                "Prof-specialty",
+                "Tech-support",
+                "Transport-moving"
+            ],
+            "race": [
+                "Asian-Pac-Islander",
+                "White"
+            ],
+            "marital-status": [
+                "Married-civ-spouse"
+            ],
+            "hours-per-week": [
+                "BrainDrain",
+                "FullTime",
+                "MidTime",
+                "OverTime"
+            ]
+        },
+        33.0262
+    ],
+    "0.1": [
+        {
+            "hours-per-week": [
+                "BrainDrain",
+                "FullTime",
+                "MidTime",
+                "OverTime"
+            ],
+            "race": [
+                "Asian-Pac-Islander",
+                "Black",
+                "Other",
+                "White"
+            ],
+            "marital-status": [
+                "Divorced",
+                "Never-married",
+                "Separated",
+                "Widowed"
+            ],
+            "capital-loss": [
+                "MediumLoss"
+            ],
+            "education-num": [
+                6,
+                7,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                16
+            ]
+        },
+        30.4572
+    ],
+    "0": [
+        {
+            "race": [
+                "Asian-Pac-Islander",
+                "Black",
+                "Other",
+                "White"
+            ],
+            "capital-gain": [
+                "LowGain",
+                "NoGain"
+            ],
+            "occupation": [
+                "?",
+                "Adm-clerical",
+                "Armed-Forces",
+                "Craft-repair",
+                "Exec-managerial",
+                "Farming-fishing",
+                "Handlers-cleaners",
+                "Machine-op-inspct",
+                "Other-service",
+                "Priv-house-serv",
+                "Tech-support",
+                "Transport-moving"
+            ],
+            "workclass": [
+                "?",
+                "Federal-gov",
+                "Local-gov",
+                "Never-worked",
+                "Private",
+                "Self-emp-inc",
+                "Self-emp-not-inc",
+                "State-gov",
+                "Without-pay"
+            ],
+            "capital-loss": [
+                "LowLoss",
+                "MediumLoss",
+                "NoLoss"
+            ],
+            "hours-per-week": [
+                "FullTime",
+                "MidTime",
+                "PartTime"
+            ],
+            "sex": [
+                "Female",
+                "Male"
+            ],
+            "marital-status": [
+                "Divorced",
+                "Married-AF-spouse",
+                "Married-spouse-absent",
+                "Never-married",
+                "Separated"
+            ],
+            "education-num": [
+                1,
+                2,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13
+            ],
+            "age": [
+                "(16.999, 26.0]",
+                "(26.0, 34.0]",
+                "(34.0, 41.0]",
+                "(41.0, 50.0]"
+            ],
+            "relationship": [
+                "Husband",
+                "Not-in-family",
+                "Other-relative",
+                "Own-child",
+                "Unmarried"
+            ]
+        },
+        42.3979
+    ],
+    "1": [
+        {
+            "hours-per-week": [
+                "FullTime",
+                "MidTime",
+                "OverTime"
+            ],
+            "workclass": [
+                "Federal-gov",
+                "Local-gov",
+                "Private"
+            ],
+            "relationship": [
+                "Husband",
+                "Wife"
+            ],
+            "capital-loss": [
+                "HighLoss"
+            ]
+        },
+        19.2157
+    ],
+    "5": [
+        {
+            "marital-status": [
+                "Married-civ-spouse"
+            ],
+            "capital-loss": [
+                "HighLoss"
+            ]
+        },
+        7.704
+    ],
+    "10": [
+        {},
+        0.0
+    ],
+    "25": [
+        {},
+        0.0
+    ],
+    "50": [
+        {},
+        0.0
+    ],
+    "100": [
+        {},
+        0.0
+    ]
+}

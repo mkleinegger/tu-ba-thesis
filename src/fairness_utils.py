@@ -14,12 +14,10 @@ from aif360.sklearn.metrics import (
     theil_index,
 )
 from aif360.algorithms.preprocessing import Reweighing
-from utils import create_model, describe_model, split_data, train_and_evaluate
+from models_utils import create_model, evaluate_model, train_model
+from data_utils import split_data
 from sklearn.metrics import accuracy_score, balanced_accuracy_score
-from aif360.sklearn.metrics import (
-    make_scorer,
-    statistical_parity_difference,
-)
+from aif360.sklearn.metrics import make_scorer, statistical_parity_difference
 
 
 def search_bias(
@@ -31,6 +29,9 @@ def search_bias(
     penalty=1,
     alpha=0.24,
 ):
+    """
+    Searches for bias in the given data and returns the privileged and unprivileged groups.
+    """
     privileged_subset = bias_scan(
         data=data,
         observations=observations,
@@ -55,13 +56,16 @@ def search_bias(
     return privileged_subset, unprivileged_subset
 
 
-def calc_fairness_score(data, protected_attributes, target, verbose=False):
-    _df = data.copy()
-    _df.dropna(inplace=True)
-    _df.reset_index(inplace=True)
+def evaluate_fairness_score(data, protected_attributes, target, verbose=False):
+    """
+    Evaluates the fairness score of the given data.
+    """
+    df = data.copy()
+    df = df.dropna()
+    df = df.reset_index()
 
     fscorer = fl.FairnessScorer(
-        _df, target_attr=target, sensitive_attrs=protected_attributes
+        df, target_attr=target, sensitive_attrs=protected_attributes
     )
 
     if verbose:
@@ -70,51 +74,83 @@ def calc_fairness_score(data, protected_attributes, target, verbose=False):
     return fscorer
 
 
-def explain_detected_bias(data, expectations, target, subset, subset_type="privileged"):
-    _df = data.copy()
-    _df["expectations"] = expectations.copy()
+def explain_bias(data, expectations, target, subset, subset_type="privileged"):
+    """
+    Explains the bias in the given data based on the subset.
+    """
+    df = data.copy()
+    df["expectations"] = expectations.copy()
 
-    _to_choose = _df[subset.keys()].isin(subset).all(axis=1)
-    _to_choose = _df.loc[_to_choose]
+    to_choose = df[subset.keys()].isin(subset).all(axis=1)
+    to_choose = df.loc[to_choose]
 
     print(
         "Our detected {} group has a size of {}, we observe {} as the average probability of earning >50k, but our model predicts {}".format(
             subset_type,
-            len(_to_choose),
-            np.round(_to_choose[target].mean(), 4),
-            np.round(_to_choose["expectations"].mean(), 4),
+            len(to_choose),
+            np.round(to_choose[target].mean(), 4),
+            np.round(to_choose["expectations"].mean(), 4),
         )
     )
 
 
-def transform_to_bias_dataset(
+def train_and_evaluate_fairness_pipeline(
+    clf,
+    nominal_features,
+    df_train,
+    target,
+    privileged_subset,
+    drop_na=True,
+    verbose=False,
+):
+    """
+    Trains a model and evaluates its fairness.
+    """
+    model = create_model(clf, nominal_features)
+    train_model(model, df_train, target, drop_na=drop_na)
+    metrics = evaluate_fairness(
+        df_train[target],
+        model.predict(df_train.drop(columns=[target])),
+        list(privileged_subset[0].keys()),
+        verbose=verbose,
+    )
+
+    return model, metrics
+
+
+def encode_protected_attributes(
     data, protected_attributes, priveleged_groups, increase_bias=False, verbose=False
 ):
+    """
+    Encodes protected attributes into binary format for bias analysis.
+    Returns a DataFrame with encoded protected attributes.
+    """
     column_renaming = {}
-    _df = (
-        data.copy()
-    )  # Make a copy of the DataFrame to avoid modifying the original DataFrame
-    _df = _df.dropna()
-    if verbose and len(data) != len(_df):
-        print(f"{len(data)-len(_df)} Na rows removed!")
+    df = data.copy()
+    df = df.dropna()
+    if verbose and len(data) != len(df):
+        print(f"{len(data)-len(df)} Na rows removed!")
 
     for i, col in enumerate(protected_attributes):
-        _df[f"{col}_index"] = _df[col].copy()
+        df[f"{col}_index"] = df[col].copy()
         if increase_bias:
-            _df[f"{col}_index"] = _df[f"{col}_index"].map(
+            df[f"{col}_index"] = df[f"{col}_index"].map(
                 lambda x: 1 if x in priveleged_groups[i] else 0
             )
-        _df[f"{col}"] = _df[col].map(lambda x: 1 if x in priveleged_groups[i] else 0)
+        df[f"{col}"] = df[col].map(lambda x: 1 if x in priveleged_groups[i] else 0)
         column_renaming[f"{col}_index"] = f"{col}"
 
     if len(protected_attributes) > 0:
-        _df.set_index(protected_attributes, inplace=True)
-        _df = _df.rename(columns=column_renaming)
+        df = df.set_index(protected_attributes)
+        df = df.rename(columns=column_renaming)
 
-    return _df
+    return df
 
 
-def describe_fairness(observations, expectations, protected_attributes, verbose=False):
+def evaluate_fairness(observations, expectations, protected_attributes, verbose=False):
+    """
+    Evaluates the fairness of the given data.
+    """
     privileged_group = (1,) * len(protected_attributes)
     fairness_metrics = {}
 
@@ -145,19 +181,22 @@ def describe_fairness(observations, expectations, protected_attributes, verbose=
     fairness_metrics["theil_index"] = theil_index(1 + expectations - observations)
 
     if verbose:
-        print(f"Metric{' ':25} Value{' ':15}")
+        print(f"{'Metric':30} : {'Value':15}")
         for k, v in fairness_metrics.items():
             print(f"{k:32}{v:.3f}")
 
     return fairness_metrics
 
 
-def scan_and_calculate_fairness(model, data, target, penalty):
-    _df = data.copy()
-
-    X_train, y_train = split_data(_df, target, drop_na=True)
-    _, y_pred = train_and_evaluate(model, _df, _df, target, drop_na=True)
-    y_probs = pd.Series(model.predict_proba(X_train)[:, 1])
+def search_and_evaluate_fairness(model, data, target, penalty):
+    """
+    Searches for bias and evaluates the fairness of the given data.
+    """
+    X_train, y_train = split_data(data, target, drop_na=True)
+    model.fit(X_train, y_train)
+    y_pred, y_probs = model.predict(X_train), pd.Series(
+        model.predict_proba(X_train)[:, 1]
+    )
 
     privileged_subset = bias_scan(
         data=X_train,
@@ -170,12 +209,11 @@ def scan_and_calculate_fairness(model, data, target, penalty):
         favorable_value=1,
     )
 
-    df_bias = transform_to_bias_dataset(
-        _df,
+    df_bias = encode_protected_attributes(
+        data,
         list(privileged_subset[0].keys()),
         list(privileged_subset[0].values()),
     )
-
     if len(privileged_subset[0].keys()) == 0:
         return {
             "statistical_parity_difference": 0,
@@ -185,16 +223,20 @@ def scan_and_calculate_fairness(model, data, target, penalty):
             "theil_index": 0,
         }, privileged_subset
     else:
-        metrics = describe_fairness(
-            df_bias[target], y_pred, list(privileged_subset[0].keys())
+        return (
+            evaluate_fairness(
+                df_bias[target], y_pred, list(privileged_subset[0].keys())
+            ),
+            privileged_subset,
         )
-        return metrics, privileged_subset
 
 
 def compute_metrics(
     dataset_true, dataset_pred, unprivileged_groups, privileged_groups, disp=True
 ):
-    """Compute the key metrics"""
+    """
+    Computes fairness metrics for the given datasets.
+    """
     classified_metric_pred = ClassificationMetric(
         dataset_true,
         dataset_pred,
@@ -221,7 +263,7 @@ def compute_metrics(
     return metrics
 
 
-def create_aif360_standardDataset(
+def convert_to_standardDataset(
     data,
     categorical_features,
     target,
@@ -229,7 +271,10 @@ def create_aif360_standardDataset(
     protected_attributes,
     privileged_groups,
 ):
-    _df = data.copy()
+    """
+    Converts the given data into a StandardDataset.
+    """
+    df = data.copy()
 
     if isinstance(favorable_classes, int):
         favorable_classes = [favorable_classes]
@@ -242,7 +287,7 @@ def create_aif360_standardDataset(
             privileged_classes.append(group)
 
     dataset = StandardDataset(
-        df=_df,
+        df=df,
         label_name=target,
         favorable_classes=favorable_classes,
         scores_name="",
@@ -257,93 +302,77 @@ def create_aif360_standardDataset(
     return dataset
 
 
-def plot_fairness_metrics(data):
-    _, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 5))
-
-    # Plotting df_bias
-    data[filter(lambda x: x != "disparate_impact", data.columns)].plot(
-        kind="line", ax=axes[1]
-    )
-    axes[1].set_xlabel("Iteration")
-    axes[1].set_ylabel("Value")
-    axes[1].set_title("Bias Metrics vs. Iteration")
-    axes[1].grid(True)
-    axes[1].tick_params(axis="x", rotation=45)
-    axes[1].legend(title="Metrics", bbox_to_anchor=(1.05, 1), loc="upper left")
-
-    # Plotting df_bias
-    data["disparate_impact"].plot(kind="line", ax=axes[0])
-    axes[0].set_xlabel("Iteration")
-    axes[0].set_ylabel("Value")
-    axes[0].set_title("Bias Metrics vs. Iteration")
-    axes[0].grid(True)
-    axes[0].tick_params(axis="x", rotation=45)
-
-    plt.tight_layout()
-    plt.show()
-
-
 def reweight_mitigation(
     clf,
     nominal_features,
     target,
-    X_train,
-    y_train,
-    X_test,
-    y_test,
+    df_train,
+    df_test,
     penalty=5,
     sample_weights=None,
 ):
-    _df_train = pd.concat([X_train.copy(), y_train.copy()], axis=1)
+    """
+    Reweights the given data to mitigate bias.
+    """
+    # split data
+    X_train, y_train = split_data(df_train, target, True)
+    X_test, y_test = split_data(df_test, target, True)
+
+    # train model
     model = create_model(clf, nominal_features)
     model.fit(X_train, y_train, clf__sample_weight=sample_weights)
 
-    probs = pd.Series(model.predict_proba(X_train)[:, 1])
-    y_pred = model.predict(X_train)
-
-    privileged_subset, _ = search_bias(X_train, y_train, probs, 1, penalty=penalty)
-    # if bias-free, just return
-    if len(privileged_subset[0].keys()) <= 0:
+    # search for bias
+    privileged_subset, _ = search_bias(
+        X_train,
+        y_train,
+        pd.Series(model.predict_proba(X_train)[:, 1]),
+        1,
+        penalty=penalty,
+    )
+    if len(privileged_subset[0].keys()) <= 0:  # if bias-free, just return
         return None, None, None
 
-    model_metrics = describe_model(y_test, model.predict(X_test), verbose=False)
-
-    # do bias mitigation
-    train_standard_dataset = create_aif360_standardDataset(
-        _df_train,
+    # evaluate model and bias
+    model_metrics = evaluate_model(model, X_test, y_test, verbose=False)
+    sd_train = convert_to_standardDataset(
+        df_train,
         nominal_features,
         target,
         1,
         list(privileged_subset[0].keys()),
         list(privileged_subset[0].values()),
     )
-
     if sample_weights is not None:
-        train_standard_dataset.instance_weights = sample_weights
+        sd_train.instance_weights = sample_weights
 
-    # create (un)privileged groups
     privileged_groups = [{key: 1 for key in list(privileged_subset[0].keys())}]
     unprivileged_groups = [{key: 0 for key in list(privileged_subset[0].keys())}]
 
-    df_train_bias = transform_to_bias_dataset(
-        _df_train,
+    df_train_bias = encode_protected_attributes(
+        df_train,
         list(privileged_subset[0].keys()),
         list(privileged_subset[0].values()),
     )
-    fair_metrics = describe_fairness(
-        df_train_bias[target], y_pred, list(privileged_subset[0].keys()), verbose=False
+    fair_metrics = evaluate_fairness(
+        df_train_bias[target],
+        model.predict(X_train),
+        list(privileged_subset[0].keys()),
+        verbose=False,
     )
 
+    # reweighing
     RW = Reweighing(
         unprivileged_groups=unprivileged_groups, privileged_groups=privileged_groups
     )
-    RW.fit(train_standard_dataset)
-
-    dataset = RW.transform(train_standard_dataset)
-    return dataset.instance_weights, model_metrics, fair_metrics
+    ds_reweigh = RW.fit_transform(sd_train)
+    return ds_reweigh.instance_weights, model_metrics, fair_metrics
 
 
 def get_fair_learning_scoring(protected_attributes):
+    """
+    Returns a scoring function for fair learning.
+    """
     def discrimination(y_true, y_pred, protected_attributes):
         return abs(
             statistical_parity_difference(
